@@ -1,0 +1,4 @@
+Django==3.2.12
+matplotlib==3.5.3
+mysql_connector_repackaged==0.3.1
+twilio==7.15.4
