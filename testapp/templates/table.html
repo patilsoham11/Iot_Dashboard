@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table {
+    table-layout:fixed;
+    width:100%;
+    }
+
+    .tablewrapper { 
+        overflow-x:none;
+        box-sizing: border-box;
+        {% comment %} max-width:100%; {% endcomment %}
+        overflow-y:scroll;
+    }
+</style>
+
+<div class="card mb-3 mt-5" style="background:white;">
+    <div class="card-header text-black ">
+        <i class="fas fa-table me-1 "></i>
+        DataTable Example
+    </div>
+    <div class="tablewrapper">
+        <table class="table table-responsive" id="example" align="center" >
+            <thead>
+                <tr>
+                    <th>slave_id</th>
+                    <th>first_scan</th>
+                    <th>first_scan_datetime</th>
+                    <th>air_prassure</th>
+                    <th>leak_rate</th>
+                    <th>ok_signal</th>
+                    <th>test_datetime</th>
+                    <th>second_scan</th>
+                    <th>second_scan_datetime</th>
+                    <th>device_id</th>
+                    <th>varient</th>
+                </tr>
+            </thead>
+            {% comment %} <tfoot>
+                <tr>
+                    <th>slave_id</th>
+                    <th>first_scan</th>
+                    <th>first_scan_datetime</th>
+                    <th>air_prassure</th>
+                    <th>leak_rate</th>
+                    <th>ok_signal</th>
+                    <th>test_datetime</th>
+                    <th>second_scan</th>
+                    <th>second_scan_datetime</th>
+                    <th>device_id</th>
+                    <th>varient</th>
+                </tr>
+            </tfoot> {% endcomment %}
+            <tbody>
+                {% for x in machin_data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ x.first_scan }}</td>
+                    <td>{{ x.first_scan_datetime }}</td>
+                    <td>{{ x.air_pressure }}</td>
+                    <td>{{ x.leak_rate }}</td>
+                    <td>{{ x.ok_signal }}</td>
+                    <td>{{ x.test_datetime }}</td>
+                    <td>{{ x.second_scan }}</td>
+                    <td>{{ x.second_scan_datetime }}</td>
+                    <td>{{ x.device_id }}</td>
+                    <td>{{ x.varient }}</td>
+                </tr>
+                {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

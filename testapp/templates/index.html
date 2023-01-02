@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+                {% comment %} <button type="button" onclick="document.getElementById"
+
+                <p >click here and show time data</p> {% endcomment %}
+                <main>
+                    
+                    {% for message in messages %}
+                      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {% endfor %}
+
+                    <div class="container-fluid px-2">
+                         
+                          <h5><marquee bgcolor="red" height="30px" font-size="20px" vspace="10px" direction="right">
+                            Danger &emsp;&emsp;&emsp;            Warning &emsp;&emsp;&emsp;            Success</marquee>
+                          </h5> 
+                            
+                          <a href="{% url 'home' %}"><h3><b><u>Dashboard </u></b></h3></a>
+                   
+                        <!-- <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol> -->
+                         <div class="row">
+                            <div class="col-xl-2 col-md-4 col-6"  id="card_color">
+                                <div class="card mb-4 card1_col">
+                                    <div class="card-body card_col"><h2>
+                                        {{machin_data1}}</h2>Primary Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small stretched-link card_col" href="#">View Details</a>
+                                        <div class="small card_col"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-md-4 col-6">
+                                <div class="card mb-4 card2_col">
+                                    <div class="card-body card_col"><h2>
+                                        {{machin_data2}}</h2>Warning Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small stretched-link card_col" href="#">View Details</a>
+                                        <div class="small card_col"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-xl-2 col-md-4  col-6">
+                                <div class="card mb-4 card3_col">
+                                    <div class="card-body card_col"><h2>
+                                        {{machin_data3}}</h2>Success Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small stretched-link card_col" href="#">View Details</a>
+                                        <div class="small card_col"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-md-4  col-6">
+                                <div class="card mb-4 card4_col">
+                                    <div class="card-body card_col"><h2>
+                                        {{machin_data1}}</h2>Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small stretched-link card_col" href="#">View Details</a>
+                                        <div class="small card_col"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-md-4 col-6">
+                                <div class="card mb-4 card5_col">
+                                    <div class="card-body card_col"><h2>
+                                        {{machin_data1}}</h2>Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small stretched-link card_col" href="#">View Details</a>
+                                        <div class="small card_col"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-md-4  col-6">
+                                <div class="card mb-4 card6_col">
+                                    <div class="card-body card_col"><h2>
+                                        {{machin_data1}}</h2>Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small stretched-link card_col" href="#">View Details</a>
+                                        <div class="small card_col"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-3 col1">
+                                    <div class="card-header head_col text-dark">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Working Progress Bar 
+                                    </div>
+                                    <div class="card-body"> <canvas id="myChart1" style="width:98%; " ></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-3 col2">
+                                    <div class="card-header head_col text-black">
+                                        <i class="fas fa-chart-bar me-1 text-black"></i>
+                                        Completed Pie Chart 
+                                    </div>
+                                    <div class="card-body"><canvas id="myChart2" style="width:100%;"></canvas></div>
+                                </div>
+                            </div>
+                           
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-3 col3 ">
+                                    <div class="card-header head_col text-black">
+                                        <i class="fas fa-chart-bar me-1 "></i>
+                                        Live Progress Chart 
+                                    </div>
+                                    <div class="card-body3" ><canvas id="myChart3" style="width:100%;" ></canvas></div>
+                                </div>
+                            </div>
+                            
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="col-xl-6">
+                                <div class="card mb-3 col4">
+                                    <div class="card-header head_col text-black">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Line Chart 
+                                    </div>
+                                    <div class="card-body4"><canvas id="myChart4" style="width:100%;"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+
+
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-3 col5">
+                                    <div class="card-header head_col text-black">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        bar Chart
+                                    </div>
+                                    <div class="card-body5"> <canvas id="myChart5" style="width:100%;"></canvas></div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-6">
+                                <div class="card mb-3 col6">
+                                    <div class="card-header head_col text-black">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Bar Chart 
+                                    </div>
+                                    <div class="card-body6"><canvas id="myChart6" style="width:100%;"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                
+
+
+
+                        {% endblock %}

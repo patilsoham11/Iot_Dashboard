@@ -1,0 +1,76 @@
+{% extends 'base.html' %} 
+{% load widget_tweaks %}
+{% block content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/tempone.css' %}" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid px-1 py-2 mx-auto">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 ">
+          {% comment %} <h3 class="text-center ">Alert Master</h3> {% endcomment %}
+          <div class="card">
+            <h3 class="text-center mb-4 text-primary ">Update User</h3>
+
+            <form class="form-card" action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row justify-content-between text-left">
+
+
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputdeviceid" class="text-black">Username :</label>
+                  {% render_field form.username  %}
+                </div>
+
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputalertmsg" class="text-black">FirstName :</label>
+                  {% render_field form.first_name %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputregister" class="text-black">LastName :</label>
+                  {% render_field form.last_name %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputcount" class="text-black">Email :</label>
+                  {% render_field form.email %}
+                </div>
+
+                
+                <div class="form-group col-sm-6 flex-column d-flex mb-4">
+                  <label for="inpurdatetime" class="text-black">Date Joined:</label>
+                  {% render_field form.date_joined %}
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputfile" class="text-black">Last Login:</label>
+                  {% render_field form.last_login %}
+                </div>
+
+               
+
+                <div class="mt-4 mb-0">
+                  <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Update</button></div>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}
+
+
+

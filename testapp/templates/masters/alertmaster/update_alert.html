@@ -1,0 +1,86 @@
+{% extends 'base.html' %} 
+{% load widget_tweaks %}
+{% block content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/tempone.css' %}" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid px-1 py-2 mx-auto">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 ">
+          {% comment %} <h3 class="text-center ">Alert Master</h3> {% endcomment %}
+          <div class="card">
+            <h3 class="text-center mb-4 text-primary ">Update Alert Master</h3>
+
+            <form class="form-card" action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row justify-content-between text-left">
+
+
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputdeviceid" class="text-black">Device Id :</label>
+                  {% render_field form.device_id class="form-select mt-2 p-2" %}
+                  {% comment %} <select class="form-select" name="device_id" id="id_alert_id" required >
+                    <option value="" selected>select</option>
+                  {% for a in cm %}
+                    <option value="{{ a.device_id }}">{{ a.device_name }}</option>
+                  {% endfor %}
+                  </select> {% endcomment %}
+                </div>
+
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputalertmsg" class="text-black">Alert Massage :</label>
+                  {% comment %} <input type="text" placeholder="Enter alart Massage" name="alert_massage" /> {% endcomment %}
+                  {% render_field form.alert_massage %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputregister" class="text-black">Register :</label>
+                  {% render_field form.register %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputcount" class="text-black">counts :</label>
+                  {% render_field form.counts %}
+                </div>
+
+                
+                {% comment %} <div class="form-group col-sm-6 flex-column d-flex mb-4">
+                  <label for="inpurdatetime" class="text-black">Date Time :</label>
+                  <input type="date" name="date_time" placeholder=""/>
+                </div> {% endcomment %}
+
+                {% comment %} <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputfile" class="text-black">Company Logo :</label>
+                  <input type="file" name="company_logo" accept="image/*" />
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputfile" class="text-black">Company Image:</label>
+                  <input type="file" name="company_image" accept="image/*"/>
+                </div> {% endcomment %}
+
+                <div class="mt-4 mb-0">
+                  <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Update</button></div>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}
+
+
+

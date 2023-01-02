@@ -1,0 +1,176 @@
+{% extends 'base.html' %} 
+{% load widget_tweaks %}
+{% block content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/tempone.css' %}" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container-fluid px-1 py-2 mx-auto">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 ">
+          <div class="card">
+            <h3 class="text-center mb-4 text-primary ">Update User Details</h3>
+
+            <form class="form-card" action =""  method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% comment %} {{ form.as_p }} {% endcomment %}
+              <div class="row justify-content-between text-left">
+
+
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputemailid" class="text-black">Email Id :</label>
+                  {% render_field form.email_id %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputname" class="text-black">First Name :</label>
+                  {% render_field form.first_name %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputname" class="text-black">Last Name :</label>
+                  {% render_field form.last_name %} 
+                </div> 
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-4">
+                    <label for="inputnumber" class="text-black">Phone Number:</label>
+                    {% render_field form.phone_number %} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                    <label for="inputfile" class="text-black">Company Id :</label>
+                    {% render_field form.company_id class="form-select mt-2 p-2" %} 
+                    {% comment %} <select class="form-select mt-2" name="company_id" id="id_company_id" required >
+                        <option value="" selected>select</option>
+                    {% for a in cm %}
+                        <option value="{{ a.company_id }}">{{ a.company_name }}</option>
+                    {% endfor %}
+                    </select> {% endcomment %}
+                </div> 
+  
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputaddress" class="text-black">Address :</label>
+                  {% render_field form.address %} 
+                </div>
+
+                
+               
+
+               
+                {% comment %} <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputfile" class="text-black">Company Image:</label>
+                  <input type="file" name="company_image" accept="image/*"/>
+                </div> {% endcomment %}
+
+                <div class="mt-4 mb-0">
+                  <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Update</button></div>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User_Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href='{% static "css/login.css" %}'>
+</head>
+<body>
+    <div class="container">
+        <h4 class="text-center"> <strong>User_Details</strong></h4>
+        <form action="/registration" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="userid"> <span class="glyphicon glyphicon-user"></span> User_Id</label>
+                <input type="text" class="form-control" id="userid" placeholder="Enter User_Id" name="userid" required>
+               
+            </div>
+            
+            <div class="form-group">
+                <label for="companyid"> <span class="glyphicon glyphicon-user"></span> Company_Id:</label>
+                <input type="text" class="form-control" id="companyid" placeholder="Enter Compnany_Id" name="companyid" required>
+            </div>
+
+            <div class="form-group">
+                <label for="firstname"> <span class="glyphicon glyphicon-lock"></span> User_FirstName:</label>
+                <input type="firstname" class="form-control" id="firstname" placeholder="Enter FirstName" name="firstname" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastname"> <span class="glyphicon glyphicon-user"></span> User_LastName:</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Enter LastName" name="lastname" required>
+               
+            </div>
+            
+            <div class="form-group">
+                <label for="email"> <span class="glyphicon glyphicon-user"></span> User_EmailId:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email_Id" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneno"> <span class="glyphicon glyphicon-lock"></span> User_PhoneNo:</label>
+                <input type="text" class="form-control" id="phoneno" placeholder="Enter PhoneNo" name="phoneno" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="address"> <span class="glyphicon glyphicon-lock"></span> User_Address:</label>
+                <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+   
+    
+</body>
+</html> {% endcomment %}

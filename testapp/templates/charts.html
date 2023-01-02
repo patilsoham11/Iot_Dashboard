@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card mb-3 col">
+            <div class="card-header head_col">
+                <i class="fas fa-chart-area me-1"></i>
+                CircularProgressBar Chart
+            </div>
+            <div class="card-body"> <canvas id="myChart" style="width:100%;max-width:600px" ></canvas></div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card mb-3 col">
+            <div class="card-header head_col">
+                <i class="fas fa-chart-bar me-1"></i>
+                Pie Chart 
+            </div>
+            <div class="card-body"><canvas id="myChart1" style="width:100%;max-width:600px"></canvas></div>
+        </div>
+    </div>
+   
+</div>
+
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card mb-3 col">
+            <div class="card-header head_col">
+                <i class="fas fa-chart-bar me-1"></i>
+                Line Area Chart 
+            </div>
+            <div class="card-body"><canvas id="myChart4" style="width:100%;max-width:600px"></canvas></div>
+        </div>
+    </div>
+    
+
+    <div class="col-xl-6">
+        <div class="card mb-3 col">
+            <div class="card-header head_col">
+                <i class="fas fa-chart-bar me-1"></i>
+                Line Chart 
+            </div>
+            <div class="card-body"><canvas id="myChart2" style="width:100%;max-width:600px"></canvas></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card mb-3 col">
+            <div class="card-header head_col">
+                <i class="fas fa-chart-area me-1"></i>
+                Bar Chart
+            </div>
+            <div class="card-body"> <canvas id="myChart3" style="width:100%;max-width:600px"></canvas></div>
+        </div>
+    </div>
+    
+    <div class="col-xl-6">
+        <div class="card mb-3 col">
+            <div class="card-header head_col">
+                <i class="fas fa-chart-bar me-1"></i>
+                Bar Chart 
+            </div>
+            <div class="card-body"><canvas id="myChart5" style="width:100%;max-width:600px"></canvas></div>
+        </div>
+    </div>
+</div>
+
+
+            
+                    {% endblock %}

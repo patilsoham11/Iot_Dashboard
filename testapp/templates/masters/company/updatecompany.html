@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/tempone.css' %}" rel="stylesheet" />
+    <title>Update</title>
+  </head>
+  <body>
+    <div class="container-fluid px-1 py-2 mx-auto">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 "> 
+          {% comment %} <h3 class="text-center "></h3> {% endcomment %}
+          <div class="card">
+            <h3 class="text-center  mb-4 text-primary "> Edit Company Information</h3>
+
+            <form class="form-card" action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              {% comment %} {{ form.as_p}} {% endcomment %}
+              <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="id_company_name" class="text-black">Company Name :</label>
+                  {% render_field form.company_name %} 
+                </div>
+
+                <div class="form-group col-sm-12 flex-column d-flex mb-2">
+                  <label for="inputcompanyid" class="text-black">Company Address :</label>
+                  {% render_field form.company_address %} 
+                </div>
+
+                {% comment %} <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputdate" class="text-black">Updated Date :</label>
+                  <input type="date" name="updated_date" placeholder=""/>
+                </div>
+
+                
+                <div class="form-group col-sm-6 flex-column d-flex mb-4">
+                  <label for="inpurtext" class="text-black">Deleted Date :</label>
+                  <input type="date" name="deleted_date" placeholder=""/>
+                </div> {% endcomment %}
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputfile" class="text-success">Company Logo :</label>
+                  {% render_field form.company_logo  class="text-danger"%} 
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputfile" class="text-success">Company Image:</label>
+                  {% render_field form.company_image class="text-danger" %}
+                </div>
+
+                <div class="form-group col-sm-6 flex-column d-flex mb-2">
+                  <label for="inputdate" class="text-black">Created Date :</label>
+                  {% render_field form.created_date class="form-control" %} 
+                </div> 
+
+                <div class="mt-4 mb-0">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html> 
+
+
+
+{% endblock %}
+

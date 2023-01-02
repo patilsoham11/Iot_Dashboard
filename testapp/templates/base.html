@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard</title>
+
+        <link rel="icon" href="{% static 'assets/img/wayzon.png' %}" type="image/icon type">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+
+
+
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+        <!-- export table Links -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" /> 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" /> 
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> 
+    
+        
+    </head>
+    <body class="sb-nav-fixed bg_col ">
+        <nav class="sb-topnav navbar navbar-expand nav-item" id="navchanges">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="{% url 'home' %}"><img src="{% static 'assets/img/wayzon.png' %}" alt="Logo" style="width:50px;" class="rounded-pill"></a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 bttn d-flex bg-white" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+
+            
+            <div class="collapse navbar-collapse justify-content-end ml-4">
+                {% comment %} <ul class="navbar-nav position-fixed ">
+                    <li class="nav-item d-inline-block">
+                      <a href="#" class="nav-link text-white"><i class="fa fa-fw fa-home "></i> Home</a>
+                    </li>
+                    <li class="nav-item d-inline-block">
+                      <a href="#" class="nav-link text-white"><i class="fa fa-question-circle"></i> Help</a>
+                    </li>
+                    <li class="nav-item d-inline-block">
+                        <a href="#" class="nav-link text-white"><i class="far fa-bell"></i></a>
+                    </li>
+                </ul>     {% endcomment %}
+                <ul class="navbar-nav ms-auto ms-md-0 me-0 me-lg-4">
+                    <li class="nav-item dropdown">
+                        {% if reg.count > 9 %}
+                        <a class="nav-link dropdown-toggle1" id="navbarDropdown1" title="{{ reg.count }} reg" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            <i class="fas fa-bell "></i>
+                            <span class="badge rounded-pill badge-notification bg-danger ">9+</span>
+                        </a>
+                        {% elif reg.count == 0 %}
+                        <a class="nav-link dropdown-toggle1" id="navbarDropdown1" >
+                            <i class="fas fa-bell "></i>
+                            <span class="badge rounded-pill badge-notification bg-danger ">0</span>
+                        </a>
+                        {% else %}
+                        <a class="nav-link msgs dropdown-toggle1" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            <i class="fas fa-bell "></i>
+                            <span class="badge rounded-pill badge-notification bg-danger ">{{ reg.count }}</span>
+                        </a>
+                        {% endif %}
+                        
+                        
+                        <ul class="dropdown-menu dropdown-menu-end bellicon" aria-labelledby="navbarDropdown">
+                            <div class="title-wrap d-flex align-items-center">
+                                <h4 class="title mb-0 text-black"> 
+                                    &nbsp; &nbsp;<i class="fas fa-bell text-danger "></i>&nbsp; Notification ({{ reg.count }})
+                                </h4>
+                            </div><br>
+                
+                            <ul class="custom-notifications">
+                                <a href="#" class="smalls ml-auto d-flex justify-content-end me-2">Clear All</a>
+                                {% for massage in reg %}
+                                <li > 
+                                    <a href="#" class="d-flex alert alert-warning alert-dismissible" role="alert" >
+                                        <div class="text pl-3 text-black">
+                                            <strong class=" msg me-auto"> &nbsp;your plc msg is {{ massage.alert_massage }}</strong><br> 
+                                            <small class="times">{{ massage.date_time }}</small>
+                                            
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% comment %} <div>TOTAL ={{ reg.count }}</div>
+                            <br> {% endcomment %}
+                            {% comment %} <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div> {% endcomment %}
+                            
+                            <p class="text-center mb-3-0 p-2 "><a href="#" class="small">View All</a></p>
+                        </ul>
+                    </li>
+                </ul>
+            </div> 
+            
+
+            
+            {% comment %} <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control me-2" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+            </form> {% endcomment %}
+
+               
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href= '/password/'>Change Password</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="{% url 'redirect-admin' %}">Admin</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+
+
+ <!-- ......sidebar......... -->
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav" >
+                <nav class="sb-sidenav accordion sidenav-color" id="sidenavAccordion" >
+                    <div class="sb-sidenav-menu" >
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading sidebar-text-col">Core</div>
+                            <a class="nav-link sidebar-text-col" href="{% url 'home' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            {% comment %} <div class="sb-sidenav-menu-heading sidebar-text-col">Interface</div> {% endcomment %}
+                            <a class="nav-link collapsed sidebar-text-col" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Masters
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link " href="{% url 'alert_details' %}">Alerts_Master </a>
+                                    <a class="nav-link " href="{% url 'device_details' %}">Divice_Details</a>
+                                    <a class="nav-link " href="{% url 'company' %}">Company_Info</a>
+                                    <a class="nav-link " href="{% url 'user_details' %}">User_details</a>
+                                    <hr>    
+
+                                    {% comment %} <a class="nav-link " href="{% url 'temp_one' %}">temp_one</a> {% endcomment %}
+
+                                    
+                            </div>
+
+
+                            <a class="nav-link collapsed sidebar-text-col" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table-list"></i></div>
+                                Reports
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'tables' %}">Table 1</a>
+                                    <a class="nav-link" href="">Table 2</a>
+                                    <a class="nav-link" href="">Table 3</a>
+                                    <a class="nav-link" href="">Table 4</a>
+                                    <a class="nav-link" href="">Table 5</a>
+                                    <a class="nav-link" href="">Table 6</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed sidebar-text-col" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTables" aria-expanded="false" aria-controls="collapseTables">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table-list"></i></div>
+                                demo
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseTables" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordiontables">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">demo 1</a>
+                                    <a class="nav-link" href="#">demo 2</a>
+                                    <a class="nav-link" href="#">demo 3</a>
+                                    <a class="nav-link" href="#">demo 4</a>
+                                    <a class="nav-link" href="#">demo 5</a>
+                                    <a class="nav-link" href="#">demo 6</a>
+                                   
+                                </nav>
+                            </div> 
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="">401 Page</a>
+                                            <a class="nav-link" href="">404 Page</a>
+                                            <a class="nav-link" href="">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading sidebar-text-col">Addons</div>
+                            <a class="nav-link sidebar-text-col" href="{% url 'charts' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <!-- <div class="small">Logged in as:</div> -->
+                        <!-- Start Bootstrap -->
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                    <main>
+                        <div class="container-fluid">
+                        {% block content %}
+
+
+
+                        {% endblock %}
+
+
+                    </div>
+
+                    </main>
+                    
+
+
+
+
+
+
+{% comment %} 
+
+
+
+                    <footer class="text-center" style="color:#b1afb5 ; background:#182142" >
+                        <div class="cotainer  p-4">
+                            
+                         
+                           
+            
+                         <section class="">
+                            
+                              <div class="row">
+                              
+                                  <div class="col-lg-6 col-md-6 mb-4 mb-md-0 ">
+                                      <h6 class="text-uppercase">Powered by Wayzon</h6>
+                                      <div>
+                                         <img src="{% static 'assets/img/wayzon.png' %}" alt="" class="footer-img" width="80px" height="80px" >
+                                        </div>
+                                
+                                    </div>
+            
+                    
+                                   <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                                     <h6 class="text-uppercase">Marketed by Prism Automation</h6>
+                                        <div>
+                                             <img src="{% static 'assets/img/prism.jpg' %}" alt=""  class="footer-img1" width="80px" height="60px">
+                                       </div>
+                      
+                               
+                                    </div>
+                              
+                                </div>
+                            
+                            </section>
+                            <section class="my-4">
+                                
+                                <a class="btn btn-outline-light btn-floating m-1"   href="#!" role="button">
+                                 
+                                   <i class="fab fa-facebook-f"></i>
+                                </a>
+                  
+                               
+                                 <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                                   <i class="fab fa-twitter"></i>
+                                 </a>
+            
+                                 <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button" >
+                                    <i class="fab fa-google"></i>
+                                </a>
+            
+                               
+            
+                          
+                                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                           
+                            </section>
+                            <section class="">
+                                <form action="">
+                     
+                                   <div class="row d-flex justify-content-center">
+                     
+                                       <div class="col-auto">
+                                           <p class="pt-2">
+                                               <strong>Sign up for our newsletter</strong>
+                                          </p>
+                                       </div>
+                       
+                                       <div class="col-md-5 col-12">
+                         
+                                            <div class="form-outline form-white mb-4">
+                                               <input type="email" id="form5Example2" class="form-control" placeholder="email password" />
+                                                 <label class="form-label" for="form5Example2"></label>
+                                             </div>
+                                       </div>
+                      
+                       
+                                       <div class="col-auto">
+                         
+                                           <button type="submit" class="btn btn-outline-light mb-4">
+                                             Subscribe
+                                           </button>
+                                        </div>
+                     
+                                     </div>
+                     
+                                 </form>
+                           </section>
+            
+                        </div>
+                    </footer> {% endcomment %}
+              
+                <footer class="py-1 mt-auto foot-color">
+
+                    <div class="container-fluid px-4 foot-position">
+
+                        <img src="{% static 'assets/img/wayzon.png' %}" alt="" class="footer-img">
+                    
+                        <a href="#" class="footer">Powered by Prism and Wayzon</a>
+                        
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
+        <script>
+            
+
+
+
+
+
+
+    $(document).ready(function() {
+        $('#example').DataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend:    'copyHtml5',
+                    //text:      '<i class="fa fa-files-o"></i>',
+                    titleAttr: 'Copy'
+                },
+                {
+                    extend:    'excelHtml5',
+                    //text:      '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend:    'csvHtml5',
+                    //text:      '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend:    'pdfHtml5',
+                    //text:      '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF'
+                },
+            ]
+        });
+    });
+        </script>
+        <script>
+
+	// count from '#group' container.
+	{% comment %} $(document).ready(function() {
+		$(".msgs").click(function() {
+			var val = parseInt($('#navbarDropdown1').find('.badge').text());
+
+             {% endcomment %}
+			// Check for the button clicked
+			{% comment %} if ($(this).hasClass('msgs')) {
+				$('#navbarDropdown1').find('.badge').text(val - 1);
+			} 
+		});
+	}); {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// cir_progress_bar 1
+var canvas = document.getElementById("myChart1");
+var context = canvas.getContext("2d");
+var al=5;
+var start=4.72;
+var cw=context.canvas.width/2;
+var ch=context.canvas.height/2;
+var diff;
+
+function progressBar(){
+var x = {{total}}
+var cal = (x/x)*100
+diff=(al/cal)*Math.PI*2;
+context.clearRect(0,0,400,200);
+context.beginPath();
+context.arc(cw,ch,50,0,2*Math.PI,false);
+context.fillStyle="#1e385e";
+context.fill();
+context.strokeStyle="#58e2c2";
+context.stroke();
+context.fillStyle="#ffffff";
+context.strokeStyle="#f7e53b";
+context.textAlign="center";
+context.lineWidth=15;
+context.font = "20px bold Nunito Sans";
+context.beginPath();
+context.arc(cw,ch,50,start,diff+start,false);
+context.stroke();
+context.fillText(al+"%",cw+2,ch+6);
+var b = {{machin_data1}}
+var percent = (b/x)*100
+if(al>=percent){
+clearTimeout(bar);
+}
+al++;
+}
+var bar=setInterval(progressBar,50);
+
+
+// piechart 2 
+const ctx = document.getElementById('myChart2').getContext('2d');
+
+// my changes 
+Chart.defaults.global.defaultFontFamily = 'Loto';
+Chart.defaults.global.defaultFontSize = 18;
+Chart.defaults.global.defaultFontColor = '#777';
+
+
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Not OK', 'OK', 'AL'],
+        datasets: [{
+            
+            data: [{{ machin_data2 }}, {{machin_data1}}, {{machin_data3}}],
+            label: 'machin_data',
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                //'rgba(75, 192, 192, 0.2)',
+
+                //'rgba(153, 102, 255, 0.2)',
+                //'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                //'rgba(153, 102, 255, 1)',
+                //'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth:2,
+
+            // my changes 
+            borderColor:'#777',
+            hoverBorderWidth:2,
+            hoverBorderColor:'#000'
+        }]
+    },
+    options: {
+        //my changes
+        responsive:false,     
+        title:{
+            display:true,
+            text:' work Chart',
+            fontSize:25,
+            position:'bottom',
+            fontColor:'#000',
+            padding:10,
+        },
+        legend:{
+            display:true,
+            position:'left',
+            labels:{
+                fontColor:'#000',
+            }
+        },
+        layout:{
+            padding:{
+                left:0,
+                right:0,
+                bottom:0,
+                top:0
+            }
+        },
+        tooltips:{
+            enabled:true,
+            backgroundColor:'red',
+            titleFontFamily:'Comic Sans Ms',    
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+// Line_Chart 3              
+var xValues = [{{hour1}}];
+
+new Chart("myChart3", {
+      type: "line",
+      data: {
+      labels: xValues,
+      datasets: [{
+      data: [{{count1}}],
+      borderColor: "blue",
+      fill: false
+    },{
+      data: [{{count2}}],
+      borderColor: "red",
+      fill: false
+
+    }]
+    },
+        options: {
+        legend: {display: true  }
+    }
+    }); 
+
+
+// Line area chart 4
+        var ctxL = document.getElementById("myChart4").getContext('2d');
+        var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+            labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "June", "Sunday"],
+            datasets: [{
+                label: "NOT Ok",
+                data: [{{count1}}],
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 0, 0, 0.8)',
+                ],
+                borderWidth: 2
+            },
+            {
+                label: "OK",
+                data: [{{count2}}],
+                backgroundColor: [
+                    'rgba(0, 0, 255, .2)',
+                ],
+                borderColor: [
+                    'rgba(0, 0, 255, .8)',
+                ],
+                borderWidth: 2
+            }
+            ]
+        },
+        options: {
+            responsive: true
+            
+            }
+    });
+
+//  Bar_Chart 5  
+new Chart(document.getElementById("myChart5"), {
+    type: 'bar',
+    data: {
+      labels: ["2021", "2022", "2023", "2024"],
+      datasets: [
+        {
+          label: "Ok",
+          backgroundColor: "#3e95cd",
+          data: [221,{{machin_data1}},0]
+        }, {
+          label: "Not_Ok",
+          backgroundColor: "#8e5ea2",
+          data: [547,{{machin_data2}},0]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        // text: 'Population growth (millions)'
+      }
+    }
+});
+
+{% comment %} bar chart 6 {% endcomment %}
+const ctxl= document.getElementById('myChart6').getContext('2d');
+const myCharts = new Chart(ctxl, {
+    type: 'bar',
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: '# of Votes',
+            data: [{{count1}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+}); 
+
+            </script>
+
+            
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+        <script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+
+        <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+
+        {% block footer_scripts %}
+        
+      
+
+
+        {% endblock %}
+
+
+    </body>
+</html>
